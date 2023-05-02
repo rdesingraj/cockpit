@@ -4,9 +4,10 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
 
+  pre-build:
+    runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/checkout@v3
     
@@ -32,6 +33,12 @@ jobs:
       - name: List after delete files
         run: ls
         
+    
+    
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
        # Validate Property
       - name: Read value from Properties-file
         id: read_property
