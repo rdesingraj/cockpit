@@ -53,7 +53,7 @@ jobs:
         run: rm -f app.module.ts
         
       - name: Rename file 
-        run: mv app.module.tenant1.ts app.module.ts
+        run: mv app.module.echo "${{ steps.yaml-data.outputs.data }}".ts app.module.ts
         
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
