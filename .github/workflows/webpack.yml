@@ -18,17 +18,11 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
+      
       # Read yml Property
       - name: Run read-yaml action
         id: yaml-data
@@ -50,13 +44,16 @@ jobs:
           
       - name: Do something with your bumped release version
         run: echo ${{ steps.read_property.outputs.the-key-of-a-property }}
+        
+      - name: Do something with your data
+        run: echo ${{ steps.read_property.outputs.data }}
         # will print "the value of 'the.key.of.a.property'"
               
       - name: Delete file 
         run: rm -f app.module.ts
         
       - name: Rename file 
-        run: mv app.module.$steps.yaml-data.outputs.data.ts app.module.ts
+        run: mv app.module.tenant1.ts app.module.ts
         
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
