@@ -18,8 +18,18 @@ jobs:
           file: './deploy.yml'         
           key-path: '["deploy"]' 
 
+      - name: Run read-yaml matruix action
+        id: yaml-arr-data
+        uses: jbutcher5/read-yaml@main     
+        with:
+          file: './deploy.yml'         
+          key-path: '["mat"]' 
+
       - name: Display read-yaml output
         run: echo "${{ steps.yaml-data.outputs.data }}"
+                
+      - name: Display read-array-yaml output
+        run: echo "${{ steps.yaml-arr-data.outputs.data }}"
                 
       - name: List before delete files
         run: ls
