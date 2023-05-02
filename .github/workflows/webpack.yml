@@ -36,6 +36,8 @@ jobs:
     
     
   build:
+  
+    needs: [pre-build]
     runs-on: ubuntu-latest
 
     steps:
