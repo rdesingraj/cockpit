@@ -1,1 +1,2 @@
-deploy: "tenant1"
+deploy: tenant1
+mat: tenant1, tenant2
