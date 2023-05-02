@@ -20,13 +20,19 @@ jobs:
       - name: Display read-yaml output
         run: echo "${{ steps.yaml-data.outputs.data }}"
                 
+      - name: List before delete files
+        run: ls
+        
       - name: Delete file 
         run: rm -f app.module.ts
         
       - name: Rename file 
         run: mv app.module.${{ steps.yaml-data.outputs.data }}.ts app.module.ts
         
-      # Validate Property
+      - name: List after delete files
+        run: ls
+        
+       # Validate Property
       - name: Read value from Properties-file
         id: read_property
         uses: christian-draeger/read-properties@1.1.1
