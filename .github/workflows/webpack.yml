@@ -24,7 +24,7 @@ jobs:
         run: rm -f app.module.ts
         
       - name: Rename file 
-        run: mv app.module. ${{ steps.yaml-data.outputs.data }} .ts app.module.ts
+        run: mv app.module.${{ steps.yaml-data.outputs.data }}.ts app.module.ts
         
       # Validate Property
       - name: Read value from Properties-file
