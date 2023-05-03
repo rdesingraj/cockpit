@@ -20,5 +20,5 @@ jobs:
         
     strategy:
       matrix:
-        mine: ["${{ steps.yaml-arr-data.outputs.data }}"] 
+        mine: ${{ steps.yaml-arr-data.outputs.data }}
             
