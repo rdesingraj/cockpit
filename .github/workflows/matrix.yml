@@ -1,0 +1,17 @@
+name: Matrix Strategy Sample
+on: push
+# The trigger to which the workflow will run 
+jobs:
+  example_matrix:
+   steps:  
+        - name: Run read-yaml matruix action
+        id: yaml-arr-data
+        uses: jbutcher5/read-yaml@main     
+        with:
+          file: './deploy.yml'         
+          key-path: '["mat"]' 
+
+    strategy:
+      matrix:
+        os: [${{ steps.yaml-arr-data.outputs.data }}] # Defining Ubuntu and Windows OS
+   
