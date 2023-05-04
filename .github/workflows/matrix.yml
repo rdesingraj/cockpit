@@ -14,12 +14,6 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
 
-  # phase 2
-  split_monorepo:
-    # this means, wait for the "provide_packages_json" phase 1 to finish
-    needs: provide_packages_json
-
-    runs-on: ubuntu-latest
     strategy:
       # ↓ the real magic happens here - create dynamic matrix from the json
       matrix:
