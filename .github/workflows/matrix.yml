@@ -4,11 +4,17 @@ on: push
 jobs:
   provide_packages_json:
     runs-on: ubuntu-latest
-
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+        
     steps:
       - uses: actions/checkout@v2
+      
       - id: set-matrix
         run: echo "::set-output name=matrix::$(./deploy.json --names)"
+      
+      - id: set-matrix1
+        run: echo "matrix={\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}" >> $GITHUB_OUTPUT
 
       - name: get properties
         id: json_properties
@@ -23,10 +29,14 @@ jobs:
     
       - name: Run read-yaml action
         run: echo "${{ steps.set-matrix.outputs.matrix }}"
-    
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-
+        
     strategy:
-      matrix:      
-        package: ${{fromJson(needs.provide_packages_json.outputs.matrix)}}
+      matrix: 
+        vals: ${{ fromJSON(steps.set-matrix1.outputs.matrix) }}    
+        
+#     outputs:
+#       matrix: ${{ steps.set-matrix.outputs.matrix }}
+
+#     strategy:
+#       matrix:      
+#         package: ${{fromJson(needs.provide_packages_json.outputs.matrix)}}
