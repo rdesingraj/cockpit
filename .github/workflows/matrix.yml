@@ -35,10 +35,8 @@ jobs:
       - matrix_input
       
     strategy:
-      fail-fast: false
       matrix:
-        param: ${{ fromJson(needs.matrix_input.outputs.param) }}   
-        node-version: [16.6, 14.x]   
+        param: ${{ fromJson(needs.matrix_input.outputs.param) }}
         
     steps:
       - run: |
@@ -81,4 +79,4 @@ jobs:
         run: npm run build --if-present
         
       - name: Deploy the Cockpit app for ${{ matrix.param }}   
-        run: npm run deploy
+        run: npm run deploy-ci --param1=${{ secrets.PARAM1 }} --param2=${{ secrets.PARAM2 }} --param3=${{ secrets.PARAM3 }} --param4=${{ secrets.PARAM4 }}
