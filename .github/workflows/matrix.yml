@@ -16,8 +16,8 @@ jobs:
       - uses: danyow/json-matrix-builder@v0.5.0
         id: array
         with:
-          cmd: ls ./src
-          separator: newline
+          str: "desing, cei, chennai"
+          separator: ','
     outputs:
       param: ${{ steps.array.outputs.build }}
   dynamic_matrix:
