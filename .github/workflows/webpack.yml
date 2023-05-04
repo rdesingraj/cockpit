@@ -64,6 +64,8 @@ jobs:
           node-version: 16.6
           
       # Runs a set of commands using the runners shell
+      - name: c8y cli install
+        run: npm install -g @c8y/cli
       - name: install
         run: npm install
       - name: Run a multi-line script
