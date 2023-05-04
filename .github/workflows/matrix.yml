@@ -10,11 +10,9 @@ jobs:
       - id: set-matrix
         run: echo "::set-output name=matrix::$(./deploy-json --names)"
 
-    # here, we save the result of this 1st phase to the "outputs"
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
 
     strategy:
-      # ↓ the real magic happens here - create dynamic matrix from the json
       matrix:
-        package: ${{ fromJson(needs.provide_packages_json.outputs.matrix) }}
+        package: ${{fromJson(needs.provide_packages_json.outputs.matrix)}}
