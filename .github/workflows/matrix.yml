@@ -79,4 +79,4 @@ jobs:
         run: npm run build --if-present
         
       - name: Deploy the Cockpit app for ${{ matrix.param }}   
-        run: npm run deploy-ci --param1=${{ secrets.PARAM1 }} --param2=${{ secrets.PARAM2 }} --param3=${{ secrets.PARAM3 }} --param4=${{ secrets.PARAM4 }}
+        run: npm run deploy-ci --param1=${{ secrets.URL }} --param2=${{ secrets.TENANT }} --param3=${{ secrets.USER_NAME }} --param4=${{ secrets.CUM_PASSWORD }}
