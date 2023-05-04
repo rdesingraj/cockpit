@@ -35,8 +35,10 @@ jobs:
       - matrix_input
       
     strategy:
+      fail-fast: false
       matrix:
-        param: ${{ fromJson(needs.matrix_input.outputs.param) }}
+        param: ${{ fromJson(needs.matrix_input.outputs.param) }}        
+        node-version: [16.6]
         
     steps:
       - run: |
