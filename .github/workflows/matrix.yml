@@ -28,4 +28,4 @@ jobs:
       
     strategy:
       matrix:
-        vals: ${{ steps.yaml-arr-data.outputs.data }}
+        vals: "${{ steps.yaml-arr-data.outputs.data }}"
