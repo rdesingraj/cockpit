@@ -6,10 +6,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-#       - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - id: set-matrix
         run: echo "::set-output name=matrix::$(./deploy.json --names)"
 
+      - name: get properties
+        id: json_properties
+        uses: zoexx/github-action-json-file-properties@release
+        with:
+          file_path: "deploy.json"
+
+      - run: |
+          echo ${{steps.json_properties.outputs.names}}    
+    
       - name: Run read-yaml action
         run: echo "${{ steps.set-matrix.outputs.matrix }}"
     
