@@ -10,16 +10,24 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: List before delete files
-        run: ls
+      - name: Run read-yaml action
+        id: yaml-data
+        uses: jbutcher5/read-yaml@main     
+        with:
+          file: './deploy.yml'         
+          key-path: '["deploy"]' 
+
+      - name: Display read-yaml output
+        run: echo "${{ steps.yaml-data.outputs.data }}"
       
       - uses: danyow/json-matrix-builder@v0.5.0
         id: array
         with:
-          str: "desing, cei, chennai"
+          str: ${{ steps.yaml-data.outputs.data }}
           separator: ','
     outputs:
       param: ${{ steps.array.outputs.build }}
+      
   dynamic_matrix:
     needs:
       - matrix_input
