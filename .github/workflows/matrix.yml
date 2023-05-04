@@ -2,11 +2,13 @@ name: Matrix Strategy Sample
 on: push
 # The trigger to which the workflow will run 
 jobs:
+
   job1:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
+    - uses: actions/checkout@v3
     - id: set-matrix
       run: |
         JSON=$(cat ./deploy.json)
