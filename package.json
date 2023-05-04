@@ -5,6 +5,7 @@
   "scripts": {
     "start": "c8ycli server",
     "build": "c8ycli build",
+    "deploy-ci": "c8ycli deploy  -u $npm_config_param1 -T $npm_config_param2 -U $npm_config_param3 -P $npm_config_param4",
     "deploy": "c8ycli deploy",
     "locale-extract": "c8ycli locale-extract",
     "postinstall": "ngcc",
