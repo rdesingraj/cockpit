@@ -1,42 +1,30 @@
-name: Matrix Strategy Sample
-on: push
-# The trigger to which the workflow will run
+name: 'example'
+on:
+  pull_request:
+  push:
+    branches:
+      - main
 jobs:
-  provide_packages_json:
+  matrix_input:
     runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-        
     steps:
       - uses: actions/checkout@v2
       
-      - id: set-matrix
-        run: echo "::set-output name=matrix::$(./deploy.json --names)"
-      
-      - id: set-matrix1
-        run: echo "matrix={\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}" >> $GITHUB_OUTPUT
-
-      - name: get properties
-        id: json_properties
-        uses: zoexx/github-action-json-file-properties@release
+      - uses: danyow/json-matrix-builder@master
+        id: array
         with:
-          file_path: "deploy.json"
-
-      - run: 
-          echo ${{steps.json_properties.outputs.names}}    
-    
-      - run: echo "::set-output name=matrix::${{steps.json_properties.outputs.names}}"
-    
-      - name: Run read-yaml action
-        run: echo "${{ steps.set-matrix.outputs.matrix }}"
-        
+          cmd: ls src
+          separator: newline
+    outputs:
+      param: ${{ steps.array.outputs.build }}
+  dynamic_matrix:
+    needs:
+      - matrix_input
     strategy:
-      matrix: 
-        vals: ${{ fromJSON(steps.set-matrix1.outputs.matrix) }}    
-        
-#     outputs:
-#       matrix: ${{ steps.set-matrix.outputs.matrix }}
-
-#     strategy:
-#       matrix:      
-#         package: ${{fromJson(needs.provide_packages_json.outputs.matrix)}}
+      matrix:
+        # Three matrix jobs work, builder.ts, execer.ts. main.ts
+        param: ${{ fromJson(needs.matrix_input.outputs.param) }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo ${{ matrix.param }}
