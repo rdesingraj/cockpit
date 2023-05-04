@@ -2,27 +2,20 @@ name: Matrix Strategy Sample
 on: push
 # The trigger to which the workflow will run 
 jobs:
-  example_matrix:
-  
+  job1:
     runs-on: ubuntu-latest
-    
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v3
+    - id: set-matrix
+      run: |
+        JSON=$(cat ./deploy.json)
+        echo "::set-output name=matrix::${JSON//'%'/'%25'}"
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.version }}
-          
-      - name: List before delete files
-        run: ls
-
-      - name: Run read-yaml matruix action
-        id: yaml-arr-data
-        uses: jbutcher5/read-yaml@main     
-        with:
-          file: './deploy.yml'         
-          key-path: '["mat"]' 
-        
-      - name: Display read-array-yaml output
-        run: echo "${{ steps.yaml-arr-data.outputs.data }}"
-
+  job2:
+    needs: job1
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{fromJson(needs.job1.outputs.matrix)}}
+    steps:
+    - run: build
