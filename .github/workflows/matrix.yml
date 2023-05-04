@@ -28,5 +28,5 @@ jobs:
     strategy:
       matrix:      
 #         run: echo ${{ steps.json_properties.outputs.value }}
-        package: ${{ fromJson(steps.json_properties.outputs.value) }} ${{  }}
+        package: ${{ fromJson(steps.json_properties.outputs.value) }}
 #         package: ${{fromJson(needs.provide_packages_json.outputs.matrix)}}
