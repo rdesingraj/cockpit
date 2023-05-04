@@ -11,51 +11,51 @@ jobs:
     steps:
       - uses: actions/checkout@v3
     
-      - name: Run read-yaml action
-        id: yaml-data
-        uses: jbutcher5/read-yaml@main     
-        with:
-          file: './deploy.yml'         
-          key-path: '["deploy"]' 
+#       - name: Run read-yaml action
+#         id: yaml-data
+#         uses: jbutcher5/read-yaml@main     
+#         with:
+#           file: './deploy.yml'         
+#           key-path: '["deploy"]' 
 
-      - name: Run read-yaml matruix action
-        id: yaml-arr-data
-        uses: jbutcher5/read-yaml@main     
-        with:
-          file: './deploy.yml'         
-          key-path: '["mat"]' 
+#       - name: Run read-yaml matruix action
+#         id: yaml-arr-data
+#         uses: jbutcher5/read-yaml@main     
+#         with:
+#           file: './deploy.yml'         
+#           key-path: '["mat"]' 
 
-      - name: Display read-yaml output
-        run: echo "${{ steps.yaml-data.outputs.data }}"
+#       - name: Display read-yaml output
+#         run: echo "${{ steps.yaml-data.outputs.data }}"
                 
-      - name: Display read-array-yaml output
-        run: echo "${{ steps.yaml-arr-data.outputs.data }}"
+#       - name: Display read-array-yaml output
+#         run: echo "${{ steps.yaml-arr-data.outputs.data }}"
                 
-      - name: List before delete files
-        run: ls
+#       - name: List before delete files
+#         run: ls
         
-      - name: Delete file 
-        run: rm -f app.module.ts
+#       - name: Delete file 
+#         run: rm -f app.module.ts
         
-      - name: Rename file 
-        run: mv app.module.${{ steps.yaml-data.outputs.data }}.ts app.module.ts
+#       - name: Rename file 
+#         run: mv app.module.${{ steps.yaml-data.outputs.data }}.ts app.module.ts
         
-      - name: List after delete files
-        run: ls
+#       - name: List after delete files
+#         run: ls
 
-       # Validate Property
-      - name: Read value from Properties-file
-        id: read_property
-        uses: christian-draeger/read-properties@1.1.1
-        with:
-          path: './deploy.properties'
-          properties: 'deploy.env'
+#        # Validate Property
+#       - name: Read value from Properties-file
+#         id: read_property
+#         uses: christian-draeger/read-properties@1.1.1
+#         with:
+#           path: './deploy.properties'
+#           properties: 'deploy.env'
           
-      - name: Do something with your bumped release version
-        run: echo ${{ steps.read_property.outputs.the-key-of-a-property }}
+#       - name: Do something with your bumped release version
+#         run: echo ${{ steps.read_property.outputs.the-key-of-a-property }}
         
-      - name: Do something with your data
-        run: echo ${{ steps.read_property.outputs.data }}
+#       - name: Do something with your data
+#         run: echo ${{ steps.read_property.outputs.data }}
         # will print "the value of 'the.key.of.a.property'"
                       
       # Runs a set of commands using the runners shell
