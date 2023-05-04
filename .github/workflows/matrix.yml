@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - uses: actions/checkout@v3
+
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.version }}
@@ -14,12 +16,12 @@ jobs:
       - name: List before delete files
         run: ls
 
-#       - name: Run read-yaml matruix action
-#         id: yaml-arr-data
-#         uses: jbutcher5/read-yaml@main     
-#         with:
-#           file: './deploy.yml'         
-#           key-path: '["mat"]' 
+      - name: Run read-yaml matruix action
+        id: yaml-arr-data
+        uses: jbutcher5/read-yaml@main     
+        with:
+          file: './deploy.yml'         
+          key-path: '["mat"]' 
         
 
             
