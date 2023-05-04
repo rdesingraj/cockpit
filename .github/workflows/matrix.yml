@@ -14,10 +14,10 @@ jobs:
         id: json_properties
         uses: zoexx/github-action-json-file-properties@release
         with:
-          file_path: "package.json"
+          file_path: "deploy.json"
 
       - run: |
-          echo ${{steps.json_properties.outputs.name}}    
+          echo ${{steps.json_properties.outputs.names}}    
     
       - name: Run read-yaml action
         run: echo "${{ steps.set-matrix.outputs.matrix }}"
