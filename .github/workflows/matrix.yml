@@ -16,8 +16,10 @@ jobs:
         with:
           file_path: "deploy.json"
 
-      - run: |
+      - run: 
           echo ${{steps.json_properties.outputs.names}}    
+    
+      - run: echo "::set-output name=matrix::${{steps.json_properties.outputs.names}}"
     
       - name: Run read-yaml action
         run: echo "${{ steps.set-matrix.outputs.matrix }}"
@@ -27,6 +29,4 @@ jobs:
 
     strategy:
       matrix:      
-#         run: echo ${{ steps.json_properties.outputs.value }}
-        package: ${{ fromJson(steps.json_properties.outputs.value) }}
-#         package: ${{fromJson(needs.provide_packages_json.outputs.matrix)}}
+        package: ${{fromJson(needs.provide_packages_json.outputs.matrix)}}
