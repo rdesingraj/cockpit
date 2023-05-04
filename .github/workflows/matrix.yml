@@ -18,7 +18,5 @@ jobs:
           file: './deploy.yml'         
           key-path: '["mat"]' 
         
-    strategy:
-      matrix:
-        mine: ${{ steps.yaml-arr-data.outputs.data }}
+
             
