@@ -25,4 +25,7 @@ jobs:
         
       - name: Display read-array-yaml output
         run: echo "${{ steps.yaml-arr-data.outputs.data }}"
-            
+      
+    strategy:
+      matrix:
+        vals: ${{ steps.yaml-arr-data.outputs.data }}
