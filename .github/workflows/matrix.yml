@@ -2,22 +2,31 @@ name: Matrix Strategy Sample
 on: push
 # The trigger to which the workflow will run 
 jobs:
+    # phase 1
+    provide_packages_json:
+        runs-on: ubuntu-latest
 
-  job1:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-    - uses: actions/checkout@v3
-    - id: set-matrix
-      run: |
-        JSON=$(cat ./deploy.json)
-        echo "::set-output name=matrix::${JSON//'%'/'%25'}"
+        steps:
+            # git clone + use PHP + composer install
+            -   uses: actions/checkout@v2
 
-  job2:
-    needs: job1
-    runs-on: ubuntu-latest
-    strategy:
-      matrix: ${{fromJson(needs.job1.outputs.matrix)}}
-    steps:
-    - run: build
+            # here we create the json, we need the "id:" so we can use it in "outputs" bellow
+            -
+                id: set-matrix
+                run: echo "::set-output name=matrix::$(./deploy-json --names)"
+
+        # here, we save the result of this 1st phase to the "outputs"
+        outputs:
+            matrix: ${{ steps.set-matrix.outputs.matrix }}
+
+    # phase 2
+    split_monorepo:
+        # this means, wait for the "provide_packages_json" phase 1 to finish
+        needs: provide_packages_json
+
+        runs-on: ubuntu-latest
+        strategy:
+            # ↓ the real magic happens here - create dynamic matrix from the json
+            matrix:
+                package: ${{ fromJson(needs.provide_packages_json.outputs.matrix) }}
+
