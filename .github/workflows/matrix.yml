@@ -25,6 +25,8 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
 
-#     strategy:
-#       matrix:
+    strategy:
+      matrix:      
+        run: echo ${{steps.json_properties.outputs.value}}
+        package: ${{steps.json_properties.outputs.value}}
 #         package: ${{fromJson(needs.provide_packages_json.outputs.matrix)}}
