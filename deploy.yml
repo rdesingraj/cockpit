@@ -1,2 +1,3 @@
-deploy: tenant1
-mat: tenant1, tenant2
+# This is the deploying tenant
+deploy: devtest
+mat: ["devtest", "prodtest"]
