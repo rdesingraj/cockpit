@@ -58,6 +58,11 @@ jobs:
 #         run: echo ${{ steps.read_property.outputs.data }}
         # will print "the value of 'the.key.of.a.property'"
                       
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.6
+          
       # Runs a set of commands using the runners shell
       - name: install
         run: npm install
