@@ -10,6 +10,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.version }}
+          
+      - name: List before delete files
+        run: ls
 
 #       - name: Run read-yaml matruix action
 #         id: yaml-arr-data
