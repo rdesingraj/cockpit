@@ -11,12 +11,12 @@ jobs:
         with:
           node-version: ${{ matrix.version }}
 
-      - name: Run read-yaml matruix action
-        id: yaml-arr-data
-        uses: jbutcher5/read-yaml@main     
-        with:
-          file: './deploy.yml'         
-          key-path: '["mat"]' 
+#       - name: Run read-yaml matruix action
+#         id: yaml-arr-data
+#         uses: jbutcher5/read-yaml@main     
+#         with:
+#           file: './deploy.yml'         
+#           key-path: '["mat"]' 
         
 
             
