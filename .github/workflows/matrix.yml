@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - uses: danyow/json-matrix-builder@master
+      - uses: danyow/json-matrix-builder@latest
         id: array
         with:
           cmd: ls src
