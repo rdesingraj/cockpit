@@ -23,5 +23,6 @@ jobs:
           file: './deploy.yml'         
           key-path: '["mat"]' 
         
-
+      - name: Display read-array-yaml output
+        run: echo "${{ steps.yaml-arr-data.outputs.data }}"
             
