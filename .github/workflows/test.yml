@@ -55,12 +55,12 @@ jobs:
       - name: Run read-yaml action
         if: ${{ ! steps.yaml-data.outputs.data  == ''}}
         run: |
-         echo "Not empty"        
+         echo "No Empty " steps.yaml-data.outputs.data        
              
       - name: Run read-yaml action
         if: ${{ steps.yaml-data.outputs.data  == ''}}
         run: |
-         echo "empty"        
+         echo "empty "  steps.yaml-data.outputs.data       
          
       - name: Set output
         id: url-data
@@ -68,7 +68,7 @@ jobs:
         
       - name: Use the value
         id: step_two
-        run: echo "${{ env.action_state }}"
+        run: echo "${{ env.deploy_url }}"
         
 #         if: ${{ !steps.yaml-data.outputs.data  == ''}}
 #            run: |
