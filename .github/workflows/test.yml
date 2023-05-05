@@ -52,22 +52,28 @@ jobs:
           file: './deploy.yml'         
           key-path: '["${{ matrix.param }}-url"]' 
           
-      - name: Validate Tenant URL action |
-        run: |          
-        if: |
-          ${{ ! steps.tenant-url.outputs.data == ''}}
-          run: |
-           echo "deploy_url=${{ steps.tenant-url.outputs.data }}" >> $GITHUB_ENV        
+      - name: Validate Tenant URL action 
+        if: ${{ ! steps.tenant-url.outputs.data == ''}}
+        run: echo "deploy_url=${{ steps.tenant-url.outputs.data }}" >> $GITHUB_ENV        
              
-          ${{ steps.read_action_js.outputs['${{ matrix.param }}-url']  == ''}}
-          id: default-ur
-          uses: jbutcher5/read-yaml@main     
-          with:
-            file: './deploy.yml'         
-            key-path: '["default-url"]' 
+      - name: Validate Default URL action 
+        if: ${{ steps.tenant-url.outputs.data == ''}}
+        id: default-url
+        uses: jbutcher5/read-yaml@main     
+        with:
+          file: './deploy.yml'         
+          key-path: '["default-url"]' 
+          
+      - name: Validate Default URL action          
+        if: ${{ steps.tenant-url.outputs.data == ''}}
+        run: echo "deploy_url=${{ steps.default-url.outputs.data }}" >> $GITHUB_ENV        
             
-          run: |
-           echo "deploy_url=${{ steps.default-url.outputs.data }}" >> $GITHUB_ENV        
+#         if: ${{ ! steps.tenant-url.outputs.data == ''}}
+#         run: echo "deploy_url=${{ steps.tenant-url.outputs.data }}" >> $GITHUB_ENV        
+             
+#           ${{ steps.read_action_js.outputs['${{ matrix.param }}-url']  == ''}}
+#           run: |
+#            echo "deploy_url=${{ steps.default-url.outputs.data }}" >> $GITHUB_ENV        
                      
        
       - name: Use the value
