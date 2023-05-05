@@ -20,9 +20,9 @@ jobs:
           key-path: '["deploy"]' 
           
         if: ${{ steps.yaml-data.outputs.data  == ''}}
-           run: |
-             echo "matcing"        
+        run: |
+         echo "matcing"        
              
-        if: ${{ !steps.yaml-data.outputs.data  == ''}}
-           run: |
-             echo "Not Empty"
+#         if: ${{ !steps.yaml-data.outputs.data  == ''}}
+#            run: |
+#              echo "Not Empty"
