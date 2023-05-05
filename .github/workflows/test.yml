@@ -52,11 +52,11 @@ jobs:
           file: './deploy.yml'         
           key-path: '["${{ matrix.param }}-url"]' 
           
-      - name: Validate Tenant URL action 
-        if: ${{ ! steps.tenant-url.outputs.data == ''}}
+      - name:  Assign Tenant URL to GITHUB_ENV 
+#         if: ${{ ! steps.tenant-url.outputs.data == ''}}
         run: echo "deploy_url=${{ steps.tenant-url.outputs.data }}" >> $GITHUB_ENV        
              
-      - name: Validate Default URL action 
+      - name: Get Default URL 
         if: ${{ steps.tenant-url.outputs.data == ''}}
         id: default-url
         uses: jbutcher5/read-yaml@main     
@@ -64,7 +64,7 @@ jobs:
           file: './deploy.yml'         
           key-path: '["default-url"]' 
           
-      - name: Validate Default URL action          
+      - name: Assign Default URL to GITHUB_ENV          
         if: ${{ steps.tenant-url.outputs.data == ''}}
         run: echo "deploy_url=${{ steps.default-url.outputs.data }}" >> $GITHUB_ENV        
             
