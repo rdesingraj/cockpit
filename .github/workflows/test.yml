@@ -68,10 +68,15 @@ jobs:
 #           file: './deploy.yml'         
 #           key-path: '["${{ matrix.param }}-url"]' 
           
-#       - name: Run read-yaml action
-#         if: ${{ ! steps.yaml-data.outputs.data  == ''}}
-#         run: |
-#          echo "deploy_url=${{ steps.yaml-data.outputs.data }}" >> $GITHUB_ENV        
+      - name: Run read-yaml action |
+        if: |
+          ${{ ! steps.read_action_js.outputs['${{ matrix.param }}-url'] == ''}}
+          run: |
+           echo "deploy_url=${{ steps.read_action_js.outputs['${{ matrix.param }}-url'] }}" >> $GITHUB_ENV        
+             
+          ${{ steps.read_action_js.outputs['${{ matrix.param }}-url']  == ''}}
+          run: |
+           echo "deploy_url=${{ steps.read_action_js.outputs['default-url'] }}" >> $GITHUB_ENV        
              
 #       - name: Get Default URL read-yaml action
 #         if: ${{ steps.yaml-data.outputs.data  == ''}}
@@ -90,9 +95,9 @@ jobs:
 #         id: url-data
 #         run: echo "deploy_url=${{ matrix.param }}" >> $GITHUB_ENV
         
-#       - name: Use the value
-#         id: step_two
-#         run: echo "${{ env.deploy_url }}"
+      - name: Use the value
+        id: step_two
+        run: echo "${{ env.deploy_url }}"
         
 #         if: ${{ !steps.yaml-data.outputs.data  == ''}}
 #            run: |
