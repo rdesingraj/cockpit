@@ -54,8 +54,8 @@ jobs:
       - name: use-yaml-file
         run: |
           echo deploy: ${{ steps.read_action_js.outputs['deploy'] }}
-          echo deploy_url: ${{ steps.read_action_js.outputs[" ${{ matrix.param }}-url"] }} 
-          echo location: ${{ steps.read_action_js.outputs[" ${{ matrix.param }}-url"] }}
+          echo deploy_url: ${{ steps.read_action_js.outputs[' ${{ matrix.param }}-url'] }} 
+          echo location: ${{ steps.read_action_js.outputs[' ${{ matrix.param }}-url'] }}
           echo default_url: ${{ steps.read_action_js.outputs['default-url'] }} 
           echo env: ${{ env.deploy_url }}
           echo env2: ${{ env.default_url }}
