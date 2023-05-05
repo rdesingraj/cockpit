@@ -1,3 +1,3 @@
-# This is the deploying tenant
-deploy: devtest, prodtest
-mat: ["devtest", "prodtest"]
+devtest-url: https://dev1.iot-dev.solenis.com
+prodtest-url: https://dev.iot.solenis.com
+default-url: https://dev1.iot-dev.solenis.com/
