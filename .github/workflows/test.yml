@@ -53,6 +53,7 @@ jobs:
           
       - name: use-yaml-file
         run: |
+          echo '${{ matrix.param }}-url'
           echo deploy: ${{ steps.read_action_js.outputs['deploy'] }}
           echo "deploy_url=${{ steps.read_action_js.outputs['${{ matrix.param }}-url'] }}"  >> "$GITHUB_ENV"
           echo location: ${{ steps.read_action_js.outputs['${{ matrix.param }}-url'] }}
