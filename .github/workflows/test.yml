@@ -57,7 +57,7 @@ jobs:
         if: |
           ${{ ! steps.tenant-url.outputs.data == ''}}
           run: |
-           echo deploy_url=${{ steps.tenant-url.outputs.data }} >> $GITHUB_ENV        
+           echo "deploy_url=${{ steps.tenant-url.outputs.data }}" >> $GITHUB_ENV        
              
           ${{ steps.read_action_js.outputs['${{ matrix.param }}-url']  == ''}}
           id: default-ur
@@ -67,7 +67,7 @@ jobs:
             key-path: '["default-url"]' 
             
           run: |
-           echo deploy_url=${{ steps.default-url.outputs.data }} >> $GITHUB_ENV        
+           echo "deploy_url=${{ steps.default-url.outputs.data }}" >> $GITHUB_ENV        
                      
        
       - name: Use the value
