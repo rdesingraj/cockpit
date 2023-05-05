@@ -19,6 +19,7 @@ jobs:
           file: './deploy.yml'         
           key-path: '["deploy"]' 
           
+      - name: Run read-yaml action
         if: ${{ steps.yaml-data.outputs.data  == ''}}
         run: |
          echo "matcing"        
