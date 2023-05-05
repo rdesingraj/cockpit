@@ -76,7 +76,7 @@ jobs:
           echo env: ${{ env.deploy_url }}
           echo env2: ${{ env.default_url }}
           echo env: ${{ env.stim }}
-          echo "deploy_url=${{ steps.read_action_js.outputs['${{env.stim }}-url'] }}"  >> "$GITHUB_ENV"
+          echo "deploy_url=${{ steps.read_action_js.outputs[''${{env.stim }}'-url'] }}"  >> "$GITHUB_ENV"
           
         if: |
           ${{ ! steps.read_action_js.outputs['${{ matrix.param }}-url'] == ''}}
