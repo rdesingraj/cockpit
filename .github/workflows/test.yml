@@ -50,7 +50,7 @@ jobs:
         uses: jbutcher5/read-yaml@main     
         with:
           file: './deploy.yml'         
-          key-path: '["deploy", "devtest-url"]' 
+          key-path: '["devtest-url"]' 
           
       - name: Run read-yaml action
         if: ${{ ! steps.yaml-data.outputs.data  == ''}}
