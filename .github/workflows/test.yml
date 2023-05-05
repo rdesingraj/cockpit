@@ -73,11 +73,11 @@ jobs:
         if: |
           ${{ ! steps.read_action_js.outputs['${{ matrix.param }}-url'] == ''}}
           run: |
-           echo "deploy_url=${{ steps.read_action_js.outputs['${{ matrix.param }}-url'] }}" >> $GITHUB_ENV        
+           echo deploy_url=${{ steps.read_action_js.outputs['${{ matrix.param }}-url'] }} >> $GITHUB_ENV        
              
           ${{ steps.read_action_js.outputs['${{ matrix.param }}-url']  == ''}}
           run: |
-           echo "deploy_url=${{ steps.read_action_js.outputs['default-url'] }}" >> $GITHUB_ENV        
+           echo deploy_url=${{ steps.read_action_js.outputs['default-url'] }} >> $GITHUB_ENV        
              
 #       - name: Get Default URL read-yaml action
 #         if: ${{ steps.yaml-data.outputs.data  == ''}}
