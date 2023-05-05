@@ -43,71 +43,37 @@ jobs:
       - run: |
           echo ${{ matrix.param }}
       
-      - uses: actions/checkout@v3
-
-      - name: read-yaml-file
-        uses: pietrobolcato/action-read-yaml@1.0.0
-        id: read_action_js
+      - uses: actions/checkout@v3          
+          
+      - name: Run read-yaml action
+        id: tenant-url
+        uses: jbutcher5/read-yaml@main     
         with:
-          config: ./deploy.yml
+          file: './deploy.yml'         
+          key-path: '["${{ matrix.param }}-url"]' 
           
-      - name: use-yaml-file
-        run: |
-          echo "stim=${{ matrix.param }}-url" >> "$GITHUB_ENV"
-          echo env: ${{ env.stim }}
-          
-          echo deploy: ${{ steps.read_action_js.outputs['deploy'] }}
-          echo "deploy_url=${{ steps.read_action_js.outputs['$(matrix.param)-url'] }}"  >> $GITHUB_ENV
-          echo location: ${{ steps.read_action_js.outputs['$(matrix.param)-url'] }}
-          echo default_url: ${{ steps.read_action_js.outputs['default-url'] }} 
-          echo "default_url=${{ steps.read_action_js.outputs['default-url'] }}"  >> $GITHUB_ENV
-          
-          
-#       - name: Run read-yaml action
-#         id: yaml-data
-#         uses: jbutcher5/read-yaml@main     
-#         with:
-#           file: './deploy.yml'         
-#           key-path: '["${{ matrix.param }}-url"]' 
-          
-      - name: Run read-yaml action |
-        run: |
-          echo "Test var"
-          echo env: ${{ env.deploy_url }}
-          echo env2: ${{ env.default_url }}
-          echo env: ${{ env.stim }}
-          echo "deploy_url=${{ steps.read_action_js.outputs['$(env.stim)-url'] }}"  >> "$GITHUB_ENV"
-          
+      - name: Validate Tenant URL action |
+        run: |          
         if: |
-          ${{ ! steps.read_action_js.outputs['${{ matrix.param }}-url'] == ''}}
+          ${{ ! steps.tenant-url.outputs.data == ''}}
           run: |
-           echo deploy_url=${{ steps.read_action_js.outputs['${{ matrix.param }}-url'] }} >> $GITHUB_ENV        
+           echo deploy_url=${{ steps.tenant-url.outputs.data }} >> $GITHUB_ENV        
              
           ${{ steps.read_action_js.outputs['${{ matrix.param }}-url']  == ''}}
+          id: default-ur
+          uses: jbutcher5/read-yaml@main     
+          with:
+            file: './deploy.yml'         
+            key-path: '["default-url"]' 
+            
           run: |
-           echo deploy_url=${{ steps.read_action_js.outputs['default-url'] }} >> $GITHUB_ENV        
-             
-#       - name: Get Default URL read-yaml action
-#         if: ${{ steps.yaml-data.outputs.data  == ''}}
-#         id: yaml-def-data
-#         uses: jbutcher5/read-yaml@main     
-#         with:
-#           file: './deploy.yml'         
-#           key-path: '["default-url"]' 
-          
-#       - name: Get Default URL read-yaml action          
-#         if: ${{ steps.yaml-data.outputs.data  == ''}}
-#         run: |
-#          echo deploy_url=${{ matrix.param }}" >> $GITHUB_ENV      
-         
-#       - name: Set output
-#         id: url-data
-#         run: echo "deploy_url=${{ matrix.param }}" >> $GITHUB_ENV
-        
+           echo deploy_url=${{ steps.default-url.outputs.data }} >> $GITHUB_ENV        
+                     
+       
       - name: Use the value
         id: step_two
         run: echo "${{ env.deploy_url }}"
         
-#         if: ${{ !steps.yaml-data.outputs.data  == ''}}
+#         if: ${{ !steps.tenant-url.outputs.data  == ''}}
 #            run: |
 #              echo "Not Empty"
