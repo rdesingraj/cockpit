@@ -69,6 +69,7 @@ jobs:
 #           key-path: '["${{ matrix.param }}-url"]' 
           
       - name: Run read-yaml action |
+        uses: jbutcher5/read-yaml@main  
         if: |
           ${{ ! steps.read_action_js.outputs['${{ matrix.param }}-url'] == ''}}
           run: |
