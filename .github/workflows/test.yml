@@ -54,9 +54,9 @@ jobs:
       - name: use-yaml-file
         run: |
           echo deploy: ${{ steps.read_action_js.outputs['deploy'] }}
-          echo deploy_url: ${{ steps.read_action_js.outputs['${{ matrix.param }}-url'] }} >> $GITHUB_ENV
+          echo deploy_url: ${{ steps.read_action_js.outputs['${{ matrix.param }}-url'] }} 
           echo location: ${{ steps.read_action_js.outputs['${{ matrix.param }}-url'] }}
-          echo default_url: ${{ steps.read_action_js.outputs['default-url-url'] }} >> $GITHUB_ENV
+          echo default_url: ${{ steps.read_action_js.outputs['default-url-url'] }} 
           echo environment: ${{ steps.read_action_js.outputs['default-url'] }}
           echo env: ${{ env.deploy_url }}
           echo env2: ${{ env.default_url }}
