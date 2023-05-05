@@ -58,8 +58,8 @@ jobs:
           echo location: ${{ steps.read_action_js.outputs['${{ matrix.param }}-url'] }}
           echo default_url=${{ steps.read_action_js.outputs['default-url-url'] }} >> $GITHUB_ENV
           echo environment: ${{ steps.read_action_js.outputs['default-url'] }}
-          echo ${{ env.deploy_url }}
-          echo ${{ env.default_url }}
+          echo env: ${{ env.deploy_url }}
+          echo env2: ${{ env.default_url }}
           
 #       - name: Run read-yaml action
 #         id: yaml-data
