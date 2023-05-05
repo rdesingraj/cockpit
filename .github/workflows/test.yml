@@ -1,0 +1,28 @@
+name: CI
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+    
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+    
+    
+      - name: Run read-yaml action
+        id: yaml-data
+        uses: jbutcher5/read-yaml@main     
+        with:
+          file: './deploy.yml'         
+          key-path: '["deploy"]' 
+          
+        if: ${{ steps.yaml-data.outputs.data  == ''}}
+           run: |
+             echo "matcing"        
+             
+        if: ${{ !steps.yaml-data.outputs.data  == ''}}
+           run: |
+             echo "Not Empty"
